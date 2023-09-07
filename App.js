@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import { StyleSheet, Text, View, TextInput, Pressable, FlatList, Modal} from 'react-native';
-import { Ionicons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons';
+import AddItem from './src/AddItem';
+import ListItem from './src/ListItem';
+import CustomModal from './src/CustomModal';
 
 export default function App() {
 
@@ -33,44 +36,17 @@ export default function App() {
   return (
     <View style={styles.container}>
 
-      <Modal visible={isModalVisible}>
-        <View>
-          <Text>¿Estas seguro que deseas eliminar la lista?</Text>
-
-          <Pressable onPress={() => clearList()}>
-            <Text>Si</Text>
-          </Pressable>
-
-          <Pressable onPress={() => setIsModalVisible(false)}>
-            <Text>No</Text>
-          </Pressable>     
-
-        </View>
-      </Modal>
+      <CustomModal setIsModalVisible={setIsModalVisible} isModalVisible={isModalVisible} clearList={clearList} />
 
       <Text style={styles.titulo}>Lista de Compras</Text>
 
-      <View style={styles.buttonContainer}>
-        <View style={styles.containerInput}>
-          <TextInput 
-          placeholder="escriba aqui un item..." 
-          style={styles.input}
-          value={text}
-          onChangeText={(value) => setText(value)} 
-          />
-        </View>
+      <AddItem text={text} setText={setText} addItem={addItem} />
 
-        <Pressable style={styles.button} onPress={() => addItem()}>
-          <Ionicons name="add-circle-outline" size={48} color="red" />
-        </Pressable>        
-      </View>
       <FlatList
         data={list}
         keyExtractor={(item) => item.id}
-        renderItem={({item}) => (
-          <Text style={styles.list}> {item.text} </Text>
-        )}
-        />
+        renderItem={({item}) => <ListItem item={item} />}
+      />
 
       <Pressable style={styles.button} onPress={() => setIsModalVisible(true)}>
         <Ionicons name="trash" size={48} color="red" />
@@ -93,34 +69,4 @@ const styles = StyleSheet.create({
     borderBottomColor: "red",
     borderBottomWidth: 5,
   },
-  
-  input: {
-    padding: 15,
-    padding: 5,
-    fontSize: 18,
-  },
-
-  containerInput: {
-    marginTop: 15,
-    borderColor: "red",
-    borderWidth: 1,
-  },
-  
-  buttonContainer: {
-    flexDirection: "row",
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  button: {
-    marginTop: 15,
-    marginLeft: 15,
-  },
-
-  list: {
-    fontSize: 20,
-    marginVertical: 2,
-    color: "blue",
-  }
-
 });
