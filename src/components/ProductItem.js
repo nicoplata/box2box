@@ -2,10 +2,12 @@ import { View, Text, StyleSheet, Pressable, Image } from 'react-native'
 import React from 'react'
 import { colors } from '../theme/colors'
 
-const ProductItem = ({ item }) => {
+const ProductItem = ({ item, navigation }) => {
   return (
     <View style={styles.container}>
-      <Pressable style={styles.button} onPress={() => console.log("Press...")}>
+      <Pressable 
+        style={styles.button} 
+        onPress={() => navigation.navigate("productDetail")}>
         <Text style={styles.text}>{item.title}</Text>
         <Image
           resizeMode="cover"
@@ -17,7 +19,7 @@ const ProductItem = ({ item }) => {
   )
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create ({ 
   container: {
     marginHorizontal: 20,
     marginVertical: 10,

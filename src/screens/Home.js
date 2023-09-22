@@ -1,14 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Categories from '../components/Categories'
 import Header from '../components/Header'
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
-    <>
-      <Header title="Categorias" />
-      <Categories />
-    </>
+    <SafeAreaView>
+      <Header title="Categorias" navigation={navigation}/>
+      <Categories navigation={navigation}/>
+    </SafeAreaView>
   )
 }
 
