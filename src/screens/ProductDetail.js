@@ -4,11 +4,9 @@ import {products} from "../data/products"
 import Header from '../components/Header';
 import { AntDesign } from '@expo/vector-icons'
 
-const ProductDetail = ({ item,  navigation}) => {
+const ProductDetail = ({ navigation }) => {
 
   const initialProd = products[0];
-
-  console.log(item)
 
   return (
     <SafeAreaView>

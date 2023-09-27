@@ -3,18 +3,22 @@ import React, {useEffect, useState} from 'react'
 import Search from '../components/Search';
 import Header from '../components/Header';
 import ProductItem from '../components/ProductItem';
-import { products } from '../data/products';
+import { useSelector } from 'react-redux';
 
-const Products = ({ category, route, navigation }) => {
-
+const Products = ({ route, navigation }) => {
   const [productFiltered, setProductFiltered] = useState([]);
   const [textInput, setTextInput] = useState(null);
-
   const { item } = route.params;
 
+  const products = useSelector( state => state.homeSlice.allProducts )
+
+  const productsFilteredByCategory = useSelector(
+    (state) => state.homeSlice.productsFilteredByCategory
+  );
+
   useEffect(() => {
-    const filterByCategory = products.filter((e) => e.category === category);
-    setProductFiltered(filterByCategory);
+    
+    setProductFiltered(productsFilteredByCategory);
 
     if (textInput) {
       const prod = products.filter(
@@ -22,7 +26,7 @@ const Products = ({ category, route, navigation }) => {
       );
       setProductFiltered(prod);
     }
-  }, [ category, textInput ]);
+  }, [ textInput, item ]);
 
   return (
     <SafeAreaView>

@@ -1,0 +1,1 @@
+export const base_url= "https://box2box-423b9-default-rtdb.firebaseio.com/"
